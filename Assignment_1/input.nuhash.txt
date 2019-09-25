@@ -1,0 +1,67 @@
+#include studio.h,math.h;
+#include something.h;
+#include something.h
+
+//#define include()
+{
+    something i cant say right now
+}
+#define min(int x,int y)
+{
+    if(x<=y)
+    {
+        return x;
+    }
+    else
+    {
+        return y;
+    }
+}
+call(me);
+dipto(ok);
+import nuhash
+#define max(
+#define main()
+{
+    /*
+    int z;
+    //int x;
+    double y;
+    */
+    char z;
+    x=10;
+    int xx=11,y=10;
+    y=10;
+    x=11;
+    int z=10;
+    int ara[10],ara1[122];
+    if(x>y)return x;
+    if(y>5)
+    {
+        print(y);
+    }
+    elif(x>5)
+    {
+        print(x);
+    }
+    else
+    {
+        print(x);
+    }
+    else
+    {
+        print(x);
+    }
+    int i;
+    loop(i=0;i<5;i=i+1)
+    {
+        print(i);
+    }
+    i=0;
+    while(i<5)
+    {
+        print(i);
+        i++;
+    }
+    return min(x,y);
+}

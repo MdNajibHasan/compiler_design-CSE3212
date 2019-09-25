@@ -1,0 +1,111 @@
+Header Included :: 
+Header 1 :: studio.h
+Header 2 :: math.h
+Header Included :: 
+Header 1 :: something.h
+Error :: Header not included or not found
+
+Comment found
+
+{
+    something i cant say right now
+}
+function Declared :: min
+If_EXPRESSION_ found
+Else found
+
+function called :: call
+
+function called :: dipto
+
+import nuhash
+ERROR :: CANT DECLARE FUNCTION
+
+function Declared :: main
+match 1
+int Type Data Declared :: 
+Var 1=z
+Comment found
+match 1
+double Type Data Declared :: 
+Var 1=y
+match 1
+char Type Data Declared :: 
+Var 1=z
+match 1
+int Type Data Declared :: 
+Var 1=xx
+Var 2=y
+match 1
+int Type Data Declared :: 
+Var 1=z
+match 2
+int Type array Declared :: 
+Array 1=ara
+Array 2=ara1
+If_EXPRESSION_ found
+If_EXPRESSION_ found
+function called :: print
+Else if _EXPRESSION_ found
+function called :: print
+Else found
+function called :: print
+Else found
+Error :: without elif
+function called :: print
+
+    match 1
+int Type Data Declared :: 
+Var 1=i
+
+    loop found
+    {
+        function called :: print
+
+    }
+    i=0;
+    While loop found
+
+    {
+        function called :: print
+
+        i++;
+    }
+    return function called :: min
+
+}
+
+
+===============================
+:: Header list :: 3
+studio.h
+math.h
+something.h
+:: FUNCTION list :: 11
+min
+call
+dipto
+main
+print
+:: varriable list :: 10
+z
+y
+xx
+i
+:: array list :: 2
+ara
+ara1
+:: Operator list :: 26
+<
+=
+/
+*
+>
++
+:: Punctuation list :: 43
+#
+;
+(
+)
+[
+]

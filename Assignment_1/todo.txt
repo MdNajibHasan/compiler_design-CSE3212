@@ -1,0 +1,46 @@
+0 keyword detection
+0.1 each line ends with semicolon
+0.2 braces maintain paranthesis
+
+1 varriable declation detection
+2 varriable assignment detection
+3 varriable type detection
+4 number of varriable declared
+5 varriable error detection 
+    (a) name collides with keyword
+    (a) was this varriable declared previously?
+    (b) is this varriable declared again?
+    (c) assignment of varriable without declation
+
+6 library added detection
+7 function detection
+8 function error detection
+    (a) function name collides with keyword?
+    (b) function declared previously?
+    (c) declation of function in another function
+    (d)valid data type in parameter
+
+9 pointer declation
+10 pointer error detection same as varriable
+10.1 pointer error detection : pointer pointing to valid data_type
+
+11 address declation
+12 address error detection same as varriable
+12.1 address pointing to a valid data_type
+
+13 single and multi line commenting
+
+14 if pattern matches
+15 elif has a parent elif or if
+16 elif parent matches
+17 else has a parent elif or if
+18 else pattern matches
+
+19 loop pattern matches
+20 while pattern matches
+21 run - while pattern matches
+
+23 operator maintains a correct paranthesis
+22 operator count
+
+

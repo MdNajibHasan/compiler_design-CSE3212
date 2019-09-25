@@ -1,0 +1,49 @@
+keyword:
+include define int double char void
+return if else elif loop while run new
+operator:
++ - * / & | % =
+Releational operator
+> >= < <= && || == !=
+
+header -- #include
+
+function -- #define function_name (data_type x,data_type y...)
+{
+
+}
+
+data_type -- void ,int , float ,bool ,double ,long,char,string,
+pointer -- *data_type
+address -- data_type&
+array -- data_type name[]
+varriable -- [a-z A-Z]+[0-9]*[a-z]*[A-Z]*
+line -- terminator ;
+scope -- {}
+condition --
+if(condition){
+
+}
+elif(condition){
+
+}
+else{
+
+}
+
+loop --
+loop(st;condition;inc)
+{
+
+}
+while(condition){
+
+}
+
+run{
+
+}while(condition);
+
+
+
+
