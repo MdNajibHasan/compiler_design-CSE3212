@@ -1,1 +1,1 @@
-# compiler_design-CSE3212
+# CSE3212 Compiler Design
