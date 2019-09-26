@@ -139,7 +139,7 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
 %}
 %%
 
-[/][/].* {printf("Comment found\n");}
+"//"".* {printf("Comment found\n");}
 "/*".* {
     if(multi==0)printf("multiComment found\n");multi=1;
 }
