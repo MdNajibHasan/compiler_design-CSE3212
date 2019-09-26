@@ -1,8 +1,8 @@
 #include studio.h,math.h;
 #include something.h;
 #include something.h
-
-//#define include()
+include();
+#define include()
 {
     something i cant say right now
 }
@@ -20,19 +20,22 @@
 call(me);
 dipto(ok);
 import nuhash
+int z;
+int ara[10];
 #define max(
 #define main()
 {
-    /*
     int z;
     //int x;
     double y;
-    */
+    /*
     char z;
     x=10;
     int xx=11,y=10;
     y=10;
     x=11;
+    */
+    int x;
     int z=10;
     int ara[10],ara1[122];
     if(x>y)return x;
@@ -61,7 +64,8 @@ import nuhash
     while(i<5)
     {
         print(i);
-        i++;
+        i=i+1;
     }
     return min(x,y);
+    return();
 }

@@ -4,8 +4,9 @@ Header 2 :: math.h
 Header Included :: 
 Header 1 :: something.h
 Error :: Header not included or not found
+Error :: Called function is a keyword
 
-Comment found
+Error :: Cannot define function name using KEYWORD
 
 {
     something i cant say right now
@@ -19,6 +20,14 @@ function called :: call
 function called :: dipto
 
 import nuhash
+match 1
+int Type Data Declared :: 
+Var 1=z
+
+match 2
+int Type array Declared :: 
+Array 1=ara
+
 ERROR :: CANT DECLARE FUNCTION
 
 function Declared :: main
@@ -29,13 +38,11 @@ Comment found
 match 1
 double Type Data Declared :: 
 Var 1=y
-match 1
-char Type Data Declared :: 
-Var 1=z
+multiComment found
+multi Comment ended
 match 1
 int Type Data Declared :: 
-Var 1=xx
-Var 2=y
+Var 1=x
 match 1
 int Type Data Declared :: 
 Var 1=z
@@ -69,9 +76,11 @@ Var 1=i
     {
         function called :: print
 
-        i++;
+        i=i+1;
     }
     return function called :: min
+
+    Error :: Called function is a keyword
 
 }
 
@@ -79,6 +88,7 @@ Var 1=i
 ===============================
 :: Header list :: 3
 studio.h
+
 math.h
 something.h
 :: FUNCTION list :: 11
@@ -87,25 +97,32 @@ call
 dipto
 main
 print
-:: varriable list :: 10
+:: varriable list :: 7
 z
 y
-xx
+x
 i
-:: array list :: 2
+:: array list :: 3
 ara
 ara1
-:: Operator list :: 26
+:: Operator list :: 14
 <
 =
-/
-*
 >
 +
-:: Punctuation list :: 43
+:: Punctuation list :: 64
 #
 ;
 (
 )
 [
 ]
+:: KEYWORD list :: 34
+include
+if
+else
+int
+double
+elif
+loop
+while
