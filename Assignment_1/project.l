@@ -163,7 +163,7 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
         int prev=idx[0];
         for (int i = 9; i < strlen(yytext); i++) {
             if (yytext[i] == ',') {
-                out[0][idx[0]][id]='\n';
+                out[0][idx[0]][id]='\0';
                 id=0;
                 if(isKeyword(out[0][idx[0]])){
                     printf("ERROR :: KEYWORD USED\n");
@@ -204,6 +204,13 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
 }
 "#define "{_DECLARE_FUNCTION_} {
     if(multi==0){
+        out[6][idx[6]][0]='d';
+        out[6][idx[6]][1]='e';
+        out[6][idx[6]][2]='f';
+        out[6][idx[6]][3]='i';
+        out[6][idx[6]][4]='n';
+        out[6][idx[6]][5]='e';
+        out[6][idx[6]][6]='\0';
     key[1]=1;
     int id=0;
     int i;
