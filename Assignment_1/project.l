@@ -211,6 +211,7 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
         out[6][idx[6]][4]='n';
         out[6][idx[6]][5]='e';
         out[6][idx[6]][6]='\0';
+        idx[6]++;
     key[1]=1;
     int id=0;
     int i;

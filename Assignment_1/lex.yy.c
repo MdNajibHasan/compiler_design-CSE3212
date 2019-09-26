@@ -1763,43 +1763,43 @@ YY_RULE_SETUP
 #line 155 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
-    key[0]=1;
-    printf("Header Included :: \n");
-    int cc = 1;
-    int br=0;
-    int id=0;
-	printf("Header %d :: ", cc++);
-    int prev=idx[0];
-    for (int i = 9; i < strlen(yytext); i++) {
-        if (yytext[i] == ',') {
-            out[0][idx[0]][id]='\n';
-            id=0;
-            if(isKeyword(out[0][idx[0]])){
-                printf("ERROR :: KEYWORD USED\n");
+        key[0]=1;
+        printf("Header Included :: \n");
+        int cc = 1;
+        int br=0;
+        int id=0;
+	    printf("Header %d :: ", cc++);
+        int prev=idx[0];
+        for (int i = 9; i < strlen(yytext); i++) {
+            if (yytext[i] == ',') {
+                out[0][idx[0]][id]='\0';
+                id=0;
+                if(isKeyword(out[0][idx[0]])){
+                    printf("ERROR :: KEYWORD USED\n");
+                    continue;
+                }
+                idx[0]++;
+                printf("\nHeader %d :: ", cc++);
                 continue;
             }
-            idx[0]++;
-            printf("\nHeader %d :: ", cc++);
-            continue;
-        }
-		if (yytext[i] == ';'){
-            if(isKeyword(out[0][idx[0]])){
-                printf("ERROR :: KEYWORD USED\n");
-                continue;
+		    if (yytext[i] == ';'){
+                if(isKeyword(out[0][idx[0]])){
+                    printf("ERROR :: KEYWORD USED\n");
+                    continue;
+                }
+                idx[0]++;
+                br=1;
+                break;
             }
-            idx[0]++;
-            br=1;
-            break;
+            out[0][idx[0]][id++]=yytext[i];
+            printf("%c", yytext[i]);
         }
-        out[0][idx[0]][id++]=yytext[i];
-        printf("%c", yytext[i]);
-    }
-    getopt(yytext);
-    getKeyword(yytext);
-    if(br==0){
-        idx[0]=prev;
-        printf("Error :: Expected semicolon");
-    }
+        getopt(yytext);
+        getKeyword(yytext);
+        if(br==0){
+            idx[0]=prev;
+            printf("Error :: Expected semicolon");
+        }
     }
 }
 	YY_BREAK
@@ -1825,6 +1825,14 @@ YY_RULE_SETUP
 #line 205 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
+        out[6][idx[6]][0]='d';
+        out[6][idx[6]][1]='e';
+        out[6][idx[6]][2]='f';
+        out[6][idx[6]][3]='i';
+        out[6][idx[6]][4]='n';
+        out[6][idx[6]][5]='e';
+        out[6][idx[6]][6]='\0';
+        idx[6]++;
     key[1]=1;
     int id=0;
     int i;
@@ -1854,7 +1862,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 233 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 241 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         printf("ERROR :: CANT DECLARE FUNCTION\n");
@@ -1863,7 +1871,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 238 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 246 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
     printf("match 1\n");
@@ -1912,7 +1920,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 284 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 292 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
     printf("match 2\n");
@@ -1961,7 +1969,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 329 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 337 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
     printf("Else found\n");
@@ -1984,7 +1992,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 348 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 356 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
     printf("Else if _EXPRESSION_ found\n");
@@ -2008,7 +2016,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 368 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 376 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
     out[6][idx[6]][0]='i';
@@ -2025,7 +2033,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 381 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 389 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         printf("loop found");
@@ -2042,7 +2050,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 394 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 402 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         printf("While loop found\n");
@@ -2060,7 +2068,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 408 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 416 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0)
         printf("Error :: Called function is a keyword\n");
@@ -2068,7 +2076,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 412 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 420 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         printf("function called :: ");
@@ -2087,7 +2095,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 427 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 435 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         if(findif==0){
@@ -2107,7 +2115,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 443 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 451 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         if(findif==1){
@@ -2135,7 +2143,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 467 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 475 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 {
     if(multi==0){
         if(funst==0)
@@ -2147,10 +2155,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 476 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 484 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 ECHO;
 	YY_BREAK
-#line 2154 "lex.yy.c"
+#line 2162 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -3036,7 +3044,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 476 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
+#line 484 "c:\\Users\\Nuhash\\Desktop\\compiler_design-CSE3212\\Assignment_1\\project.l"
 
 
 int yywrap()

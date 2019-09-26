@@ -88,7 +88,6 @@ Var 1=i
 ===============================
 :: Header list :: 3
 studio.h
-
 math.h
 something.h
 :: FUNCTION list :: 11
@@ -117,8 +116,9 @@ ara1
 )
 [
 ]
-:: KEYWORD list :: 34
+:: KEYWORD list :: 36
 include
+define
 if
 else
 int
