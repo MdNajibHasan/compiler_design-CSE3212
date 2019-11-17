@@ -228,10 +228,10 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
     }
     if(br==0){
         printf("Error :: Expected ')'\n");
-        getopt(yytext);
-        getKeyword(yytext);
     }
     else{
+        getopt(yytext);
+        getKeyword(yytext);
         idx[1]++;
         funst=1;
     }
@@ -375,10 +375,6 @@ _EXPRESSION_ {_VALUE_}{All_Operator}{_VALUE_}
 }
 "if("{_EXPRESSION_}")" {
     if(multi==0){
-    out[6][idx[6]][0]='i';
-    out[6][idx[6]][1]='f';
-    out[6][idx[6]][3]='\0';
-    idx[6]++;
     printf("If_EXPRESSION_ found\n");
     getopt(yytext);
     getKeyword(yytext);

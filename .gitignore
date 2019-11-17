@@ -11,7 +11,9 @@
 *.ilk
 *.map
 *.exp
-
+*.tab.c
+*.tab.h
+lex.yy.c
 # Precompiled Headers
 *.gch
 *.pch

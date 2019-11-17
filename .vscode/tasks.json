@@ -12,6 +12,26 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "bison make",
+            "type": "shell",
+            "command": "cd ${fileDirname} && bison -d ${file} && gcc lex.yy.c ${fileBasenameNoExtension}.tab.c -o ${fileBasenameNoExtension} && ${fileBasenameNoExtension}.exe",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "flex compile",
+            "type": "shell",
+            "command": "cd ${fileDirname} && flex ${file}",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
