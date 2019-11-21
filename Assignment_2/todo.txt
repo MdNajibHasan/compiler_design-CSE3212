@@ -1,0 +1,67 @@
+import "header.x" //comment header nad other files 
+//if not typecast a var is assigned as string 
+
+fun xx(param x1,param x2)
+{
+    return x1+x2;
+} 
+fun main()
+{
+    print("ok")
+}
+fun main()
+{
+    print("not ok already declared function main")
+}
+fun sum(param x1,param x2) //10,"val"
+{
+    print(x1-x2) //not same type error
+}
+fun func1(param x1)
+{
+    x2 = x1+87 //both need to be int 
+    x3 = x1+"86" //both need to be string //if not same then if double int then typecast int to double return double , if string int then typecast int to string return string
+    //gun r jog
+    //onno somoy typeerror
+    for(st,st_condition,st)
+    {
+    if(9+5<9)
+    {
+        if(9+8>10)
+        {
+
+        }
+        else if(9+9<17)
+        {
+
+        }
+        else
+        {
+            if(9+5<15)
+            {
+
+            }
+            else if(8+7<18)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+    }
+    else if(9>0)
+    {
+
+    }
+    else
+    {
+        print("ok")
+    }
+    }
+    while(9+2)
+    {
+        print("nice")
+    }
+}

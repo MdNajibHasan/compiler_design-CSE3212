@@ -1,27 +1,19 @@
 %{
 	#include <stdio.h>
 	#include "prac.tab.h"
-	extern int yylval;
 %}
 
-NUM [0-9]+
-PLUS "+"
-MINUS "-"
-MUL "*"
-DIV "/"
-
 %%
-
-[ \t]+
-[" "]*	
-{NUM}	{(sscanf(yytext,"%d",&yylval)) ; return(NUMBER) ;}
-{PLUS}	return(PLUS);
-{MINUS}	return(MINUS);          
-{MUL}	return(ASTERISK);
-{DIV}	return(SLASH);
-[()]	return(*yytext);
-"\n"	return(NEWLINE);	
-.	{ printf("\nunknown character"); }
+[ \t\n] ;
+[0-9]+\.[0-9]+ { printf("OK float\n");yylval.fval = atof(yytext);return FLOAT; }
+[0-9]+ { printf("OK int\n");yylval.ival = atoi(yytext); return INT; }
+[a-zA-Z0-9]+ {
+	printf("OK STRING\n");
+	yylval.sval = strdup(yytext);
+	return STRING;
+}
 %%
-
-/* user subroutines */
+int yywrap()
+{
+    return 1;
+}

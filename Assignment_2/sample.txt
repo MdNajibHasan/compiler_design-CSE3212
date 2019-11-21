@@ -1,0 +1,20 @@
+int prg_main(){
+    int var_a=11;
+    int var_b=var_a;
+    if(var_a>10)
+    {
+        9+8<9
+        if(9<8)
+        {
+            7+8
+        }
+    }
+    else_if(9<10)
+    {
+        6+7
+    }
+    else
+    {
+        12
+    }
+}

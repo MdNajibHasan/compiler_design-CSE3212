@@ -9,7 +9,7 @@
             "command": "cd ${fileDirname} && flex ${file} && gcc lex.yy.c -o ${fileBasenameNoExtension} && ${fileBasenameNoExtension}.exe",
             "args": [],
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
             }
         },
@@ -19,7 +19,7 @@
             "command": "cd ${fileDirname} && bison -d ${file} && gcc lex.yy.c ${fileBasenameNoExtension}.tab.c -o ${fileBasenameNoExtension} && ${fileBasenameNoExtension}.exe",
             "args": [],
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
             }
         },
@@ -29,9 +29,19 @@
             "command": "cd ${fileDirname} && flex ${file}",
             "args": [],
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
             }
+        },
+        {
+            "label": "compile and run",
+            "type": "shell",
+            "command": "cd ${fileDirname} && bison -d comp_bison.y && flex comp_lex.l && g++ lex.yy.c comp_bison.tab.c -o comp && comp.exe",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
         }
     ]
 }

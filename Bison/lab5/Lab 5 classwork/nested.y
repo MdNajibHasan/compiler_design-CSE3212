@@ -24,11 +24,11 @@ statement: ';'
 				}
 	| ifs
 
-ifs: IF '(' exp ')' statement	{ if($3) { printf("Value of expression in IF: %d\n",$5);}
+ifs: IF '(' exp ')' statement	{ if($3) { printf("Value of expression in IF: %d\n",$3);}
 						else { printf(" Value of IF condition is zero");}
 						} 
-	| IF '(' exp ')' statement ELSE statement	{ if($3) { printf("Value of expression in IF: %d\n",$5);}
-						else { printf(" Value of expression in ELSE: %d\n",$8);}
+	| IF '(' exp ')' statement ELSE statement	{ if($3) { printf("Value of expression in IF: %d\n",$3);}
+						else { printf(" Value of expression in ELSE: %d\n",$7);}
 						} 
 	;
 

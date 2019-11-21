@@ -1,51 +1,50 @@
 %{
     #include<stdio.h>
     #include<math.h>
-    int yylex(void);
-    void yyerror(char const *);
+    extern int yylex();
+    extern int yyparse();
+    extern FILE *yyin;
+    void yyerror(const char *s);
 %}
 
-%define api.value.type {double}
-%token NUM
-%left '-' '+'
-%left '*' '/'
-%precedence NEG
-%right '^'
+%union {
+    int ival;
+    float fval;
+    char *sval;
+}
+%token <ival> INT
+%token <fval> FLOAT
+%token <sval> STRING
 
 %%
-input:
-     %empty
-    | input line
-    ;
-line:
-    '\n'
-    | exp '\n'  { printf ("%.10g\n", $1); }
-    ;
-exp:
-    NUM
-    | exp '+' exp   {$$ = $1 + $3;    }
-    | exp '-' exp   {$$ = $1 - $3;    }
-    | exp '*' exp   {$$ = $1 * $3;    }
-    | exp '/' exp   {$$ = $1 / $3;    }
-    | exp '^' exp   {$$ =  pow($1,$3);    }
-    | '-' exp %prec NEG {$$ = -$2;  }
-    | '(' exp ')'   {$$ = $2;       }
+snazzle: INT snazzle    {
+        printf("int b: %d\n",$1);
+    }
+    | FLOAT snazzle {
+        printf("float b: %g\n",$1);
+    }
+    | STRING snazzle    {
+        printf("string b: %s\n",$1);free($1);
+    }
+    | INT   {
+        printf("int b: %d\n",$1);
+    }
+    | FLOAT {
+        printf("float b: %g\n",$1);
+    }
+    |STRING {
+        printf("string b: %s\n",$1);free($1);
+    }
     ;
 %%
-int main()
-{
-	printf("\nDeclaration : ");
-	/*yyin = fopen("a.txt","r");*/
-	yyparse();
-	return 0;
-}
 
-void yyerror (char const *s)
-{
-	fprintf (stderr, "%s\n", s);
+int main() {
+    FILE *myfile = fopen("a.txt","r");
+    yyin = myfile;
+    yyparse();
 }
-
-int yywrap()
-{
-	return 0;
+void yyerror(const char *s) {
+  printf("EEK, parse error!  Message: %s\n",s);
+  // might as well halt now:
+  exit(-1);
 }

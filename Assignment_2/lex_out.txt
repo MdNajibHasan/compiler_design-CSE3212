@@ -1,0 +1,53 @@
+lex 7:: int
+lex 2:: prg_main
+lex 10:: (
+lex 11:: )
+lex 12:: {
+lex 7:: int
+lex 6:: var_a
+lex 18:: =
+lex 1 :: 11
+lex 7:: int
+lex 6:: var_b
+lex 18:: =
+lex 6:: var_a
+lex 27:: if
+lex 10:: (
+lex 6:: var_a
+lex 24:: >
+lex 1 :: 10
+lex 11:: )
+lex 12:: {
+lex 1 :: 9
+lex 19:: +
+lex 1 :: 8
+lex 23:: <
+lex 1 :: 9
+lex 27:: if
+lex 10:: (
+lex 1 :: 9
+lex 23:: <
+lex 1 :: 8
+lex 11:: )
+lex 12:: {
+lex 1 :: 7
+lex 19:: +
+lex 1 :: 8
+lex 13:: }
+lex 13:: }
+lex 25:: else_if
+lex 10:: (
+lex 1 :: 9
+lex 23:: <
+lex 1 :: 10
+lex 11:: )
+lex 12:: {
+lex 1 :: 6
+lex 19:: +
+lex 1 :: 7
+lex 13:: }
+lex 28:: else
+lex 12:: {
+lex 1 :: 12
+lex 13:: }
+lex 13:: }

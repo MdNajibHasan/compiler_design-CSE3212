@@ -7,7 +7,9 @@
 %}
 
 %%
-
+[\t]
+[\n]
+[' ']
 [0-9]+	{ yylval = atoi(yytext);
 	return NUM;
 	}
@@ -21,7 +23,6 @@
 
 "else"	{ return ELSE; }
 
-		}
 [-*+/><();=,]	{ yylval = yytext[0];
 		return *yytext; 
 		}
