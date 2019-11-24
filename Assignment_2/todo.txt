@@ -1,23 +1,23 @@
 import "header.x" //comment header nad other files 
 //if not typecast a var is assigned as string 
 
-fun xx(param x1,param x2)
+prg_xx(param x1,param x2)
 {
     return x1+x2;
 } 
-fun main()
+prg_main()
 {
     print("ok")
 }
-fun main()
+prg_main()
 {
     print("not ok already declared function main")
 }
-fun sum(param x1,param x2) //10,"val"
+prg_sum(param x1,param x2) //10,"val"
 {
     print(x1-x2) //not same type error
 }
-fun func1(param x1)
+prg_func1(param x1)
 {
     x2 = x1+87 //both need to be int 
     x3 = x1+"86" //both need to be string //if not same then if double int then typecast int to double return double , if string int then typecast int to string return string

@@ -25,7 +25,7 @@
 %left PLUS MINUS
 %left MULT DIV
 
-%token INT DOUBLE CHAR VOID MAIN PB PE BB BE VARD VARC SM CM ASGN PRINT PRINTLN MINUS MULT DIV LT GT LE GE IF ELSE ELSEIF COL FUNCTION EQU NEQU 
+%token INT DOUBLE WHILE FOR CHAR VOID MAIN  DOT PB PE BB BE VARD VARC SM CM ASGN PRINT PRINTLN MINUS MULT DIV LT GT LE GE IF ELSE ELSEIF COL FUNCTION EQU NEQU 
 %nonassoc IFX
 %nonassoc ELSE
 %left SH
@@ -43,29 +43,33 @@ statement   : /* empty */
             | statement declaration
             | statement print
             | statement ifelse
+            | statement mathexpr
             | statement assign
-            | statement expression
+            | statement whilestmt
+            | statement forloopstmt
             ;
 
+
+mathexpr : expression SM { }
 
 declaration : type variables SM {
                 //printf("came hear declaration\n");
             }
             ;
 type        : INT | DOUBLE | CHAR {
-                printf("got type\n");
+                //printf("got type\n");
             }
             ;
 variables   : variable CM variables {
-                printf("variable , variables\n");
+                //printf("variable , variables\n");
             }
             | variable {
-                printf("variable\n");
+                //printf("variable\n");
             }
             ;
 variable    :ID
                 {
-                    printf("ok2 %s\n",$1);
+                  //  printf("ok2 %s\n",$1);
                     int res = addNewVal(&root,&last,$1,"");
                     if(!res)
                     {
@@ -75,7 +79,7 @@ variable    :ID
                 }
             |ID ASGN expression 
                 {
-                    printf("ok1 %s %d\n",$1,$3);
+                    //printf("ok1 %s %d\n",$1,$3);
                     int n = log10($3) + 1;
                     char *numberArray = calloc(n, sizeof(char));
                     sprintf(numberArray,"%ld",$3);
@@ -88,9 +92,12 @@ variable    :ID
                 } 
             ;
 
-assign : ID ASGN expression SM
+assign    : ID ASGN expression CM assign {
+                //printf("came assign\n");
+            }
+            | ID ASGN expression SM
             {
-                printf("Came here\n");
+                //printf("Came here\n");
                 struct ll_identifier* decl = isDeclared(&root,$1);
                 if(decl==NULL)
                 {
@@ -108,7 +115,7 @@ assign : ID ASGN expression SM
         ;
 print   :PRINT PB expression PE SM
             {
-                printf("Print %s\n",$3);
+                //printf("Value of expression :: %d\n",$3);
             }
             |PRINT PB ID PE SM
             {
@@ -120,7 +127,8 @@ print   :PRINT PB expression PE SM
                 }
                 else
                 {
-                    printf("Print %s\n",$3);
+                    print(decl->data);
+                    //printf("Value of %s :: %d\n",$3,decl->data.intval);
                 }
             }
         | PRINTLN PB PE SM
@@ -129,12 +137,9 @@ print   :PRINT PB expression PE SM
             }
         ;
 
-expression  : NUM {$$=$1; printf("came here num %d\n",$1);}
+expression  :NUM {$$=$1;}
             | ID 
                 {
-                    printf("Came expression\n");
-                    printf("%s\n",$1);
-                    
                     struct ll_identifier* res = isDeclared(&root,$1);
                     if(res==NULL)
                     {
@@ -144,13 +149,11 @@ expression  : NUM {$$=$1; printf("came here num %d\n",$1);}
                     else 
                     {
                         $$ = res->data.intval;
-                        printf("%d\n",$$);
                     }
                 }
             | expression PLUS expression
                 {
                     $$ = $1+$3;
-                    printf("came here plus %d\n",$$);
                 }
             | expression MINUS expression 
                 {
@@ -162,6 +165,11 @@ expression  : NUM {$$=$1; printf("came here num %d\n",$1);}
                 }
             | expression DIV expression 
                 {
+                    if($3==0)
+                    {
+                        printf("Compilation Error :: Divide by Zero Occured\n");
+                        exit(-1);
+                    }
                     $$ = $1/$3;
                 }
             | expression LT expression 
@@ -170,14 +178,12 @@ expression  : NUM {$$=$1; printf("came here num %d\n",$1);}
                 }
             | expression GT expression 
                 {
-                    printf("GT :: %d %d\n",$1,$3);
                     $$ = ($1>$3);
                 }
             | expression LE expression 
                 {
-                    printf("LE :: %d %d\n",$1,$3);
                     $$ = ($1<=$3);
-                    printf("LE res :: %d\n",$$);
+                    
                 }
             | expression GE expression 
                 {
@@ -197,9 +203,8 @@ expression  : NUM {$$=$1; printf("came here num %d\n",$1);}
                 }
             ;
 
-ifelse      : IF PB expression PE BB statement BE elseif 
-                {
-                    printf("came here ifelse %d\n",$3);
+ifelse      : IF PB expression PE BB statement BE  {
+                    //printf("came here ifelse %d\n",$3);
                     
                     /*if(ifptr<0){
                         printf("1ok negetive");
@@ -207,16 +212,16 @@ ifelse      : IF PB expression PE BB statement BE elseif
                     }
                     ifdone[ifptr] = 0;
                     ifptr --;*/
-                }
+                } elseif 
             ;
 elseif : /* empty */
-        | ELSEIF PB expression PE BB statement BE elseif
+        | ELSEIF PB expression PE BB statement BE
             {
                 printf("ELSE IF :: %d\n",$3);
-            }
+            } elseif
         | elseif ELSE BB statement BE 
             {
-                printf("Came ELSE\n");
+                //printf("Came ELSE\n");
                 /*
                 if(ifptr<0){
                     printf("4ok negetive");
@@ -244,8 +249,23 @@ fparameter  : /* empty */
 fsparameter : /* empty */
             | fsparameter CM type ID 
             ;
+
+whilestmt   : WHILE PB expression PE BB statement BE{
+                printf("while condition executed for %d\n",$3);
+            }
+            ;
+forloopstmt : FOR PB forassign SM expression SM forassign PE BB statement BE{
+                printf("for loop executed\n");
+            }
+            ;
+
+forassign   :ID ASGN expression CM ID ASGN expression
+            | ID ASGN expression
 %%
 
+extern char yytext[];
+extern int column;
 int yyerror(char *s){
-    printf("Line %d :: %s \n",yylval.lineval,s);
+    fflush(stdout);
+	printf("\n%*s\n%*s\n", column, "^", column, s);
 }
