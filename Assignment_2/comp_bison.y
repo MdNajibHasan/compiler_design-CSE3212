@@ -115,7 +115,7 @@ assign    : ID ASGN expression CM assign {
         ;
 print   :PRINT PB expression PE SM
             {
-                //printf("Value of expression :: %d\n",$3);
+                printf("Value of expression :: %f\n",$3);
             }
             |PRINT PB ID PE SM
             {
@@ -130,6 +130,10 @@ print   :PRINT PB expression PE SM
                     print(decl->data);
                     //printf("Value of %s :: %d\n",$3,decl->data.intval);
                 }
+            }
+        | PRINT PB STR PE SM
+            {
+                printf("Print String :: %s\n",$3);
             }
         | PRINTLN PB PE SM
             {
@@ -148,7 +152,10 @@ expression  :NUM {$$=$1;}
                     }
                     else 
                     {
-                        $$ = res->data.intval;
+                        if(res->data.type==1)
+                            $$ = res->data.intval;
+                        else if(res->data.type==2)
+                            $$ = res->data.doubleval;
                     }
                 }
             | expression PLUS expression

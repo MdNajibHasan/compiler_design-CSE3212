@@ -20,56 +20,254 @@ Identifier ({char}|{digit}|{special})+
 %}
 %%
 "/*" { multicomm=1;}
-"#".* { if(multicomm==0)fprintf(flexo,"comment %s\n",yytext);}
-{newline} {if(multicomm==0){count();}}
-{space} { if(multicomm==0){count();}}
-";" {if(multicomm==0){count();return SM;}}
-"," {if(multicomm==0){count();return CM;}}
+"#".* { 
+    if(multicomm==0)
+        fprintf(flexo,"comment %s\n",yytext);
+    }
+{newline} {
+    if(multicomm==0){
+        count();
+        }
+    }
+{space} { 
+    if(multicomm==0){
+        count();
+        }
+    }
+";" {
+        if(multicomm==0){
+            count();
+            return SM;
+        }
+    }
+"," {
+        if(multicomm==0){
+            count();
+            return CM;
+        }
+    }
 {digit}+ {
     if(multicomm==0){
-    count();
-    fprintf(flexo,"lex 1 :: %s\n",yytext);
-    yylval.val = atoi(yytext);
-    return NUM;
+        count();
+        fprintf(flexo,"lex 1 :: %s\n",yytext);
+        yylval.val = atoi(yytext);
+        return NUM;
     }
 }
 
-"prg_main" { if(multicomm==0){count();fprintf(flexo,"lex 2:: %s\n",yytext);return MAIN;}}
-"prg_println" { if(multicomm==0){count();fprintf(flexo,"lex 3:: %s\n",yytext);return PRINTLN;}}
-"prg_print" { if(multicomm==0){count();fprintf(flexo,"lex 4:: %s\n",yytext);return PRINT;}}
-"prg_"({char}|{digit}|{special})+ {if(multicomm==0){count();fprintf(flexo,"lex 5:: %s\n",yytext);return FUNCTION;}}
-"var_"({char}|{digit}|{special})+ {if(multicomm==0){count();fprintf(flexo,"lex 6:: %s\n",yytext);strcpy(yylval.text,yytext);return ID;}}
+"prg_main" { 
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 2:: %s\n",yytext);
+        return MAIN;
+        }
+    }
+"prg_println" { 
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 3:: %s\n",yytext);
+        return PRINTLN;
+        }
+    }
+"prg_print" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 4:: %s\n",yytext);
+        return PRINT;
+        }
+    }
+"prg_"({char}|{digit}|{special})+ {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 5:: %s\n",yytext);
+        return FUNCTION;
+        }
+    }
+"var_"({char}|{digit}|{special})+ {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 6:: %s\n",yytext);
+        strcpy(yylval.text,yytext);
+        return ID;
+        }
+    }
 
-"int" {if(multicomm==0){count();fprintf(flexo,"lex 7:: %s\n",yytext);return INT;}}
-"double" {if(multicomm==0){count();fprintf(flexo,"lex 8:: %s\n",yytext);return DOUBLE;}}
-"char" {if(multicomm==0){count();fprintf(flexo,"lex 9:: %s\n",yytext);return CHAR;}}
+"int" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 7:: %s\n",yytext);
+        return INT;
+        }
+    }
+"double" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 8:: %s\n",yytext);
+        return DOUBLE;
+        }
+    }
+"char" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 9:: %s\n",yytext);
+        return CHAR;
+        }
+    }
 
-"for" {if(multicomm==0){count();fprintf(flexo,"lex 10.1:: %s\n",yytext);return FOR;}}
-"while" {if(multicomm==0){count(); fprintf(flexo,"lex 10.2:: %s\n",yytext);return WHILE;}}
+"for" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 10.1:: %s\n",yytext);
+        return FOR;
+        }
+    }
+"while" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 10.2:: %s\n",yytext);
+        return WHILE;
+        }
+    }
 
-"(" {if(multicomm==0){count(); fprintf(flexo,"lex 10:: %s\n",yytext);return PB;}}
-")" {if(multicomm==0){count(); fprintf(flexo,"lex 11:: %s\n",yytext);return PE;}}
+"(" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 10:: %s\n",yytext);
+        return PB;
+    }
+}
+")" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 11:: %s\n",yytext);
+            return PE;
+        }
+    }
 
-"{" {if(multicomm==0){count(); fprintf(flexo,"lex 12:: %s\n",yytext);return BB;}}
-"}" {if(multicomm==0){count(); fprintf(flexo,"lex 13:: %s\n",yytext);return BE;}}
+"{" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 12:: %s\n",yytext);
+            return BB;
+            }
+    }
+"}" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 13:: %s\n",yytext);
+            return BE;
+        }
+    }
 
-"<=" {if(multicomm==0){count(); fprintf(flexo,"lex 14:: %s\n",yytext);return LE;}}
-">=" {if(multicomm==0){count(); fprintf(flexo,"lex 15:: %s\n",yytext);return GE;}}
-"==" {if(multicomm==0){count(); fprintf(flexo,"lex 16:: %s\n",yytext);return EQU;}}
-"!=" {if(multicomm==0){count(); fprintf(flexo,"lex 17:: %s\n",yytext);return NEQU;}}
-"=" {if(multicomm==0){count(); fprintf(flexo,"lex 18:: %s\n",yytext);return ASGN;}}
-"+" {if(multicomm==0){count(); fprintf(flexo,"lex 19:: %s\n",yytext);return PLUS;}}
-"-" {if(multicomm==0){count(); fprintf(flexo,"lex 20:: %s\n",yytext);return MINUS;}}
-"*" {if(multicomm==0){count(); fprintf(flexo,"lex 21:: %s\n",yytext);return MULT;}}
-"/" {if(multicomm==0){count(); fprintf(flexo,"lex 22:: %s\n",yytext);return DIV;}}
-"<" {if(multicomm==0){count(); fprintf(flexo,"lex 23:: %s\n",yytext);return LT;}}
-">" {if(multicomm==0){count(); fprintf(flexo,"lex 24:: %s\n",yytext);return GT;}}
+"<=" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 14:: %s\n",yytext);
+            return LE;
+        }
+    }
+">=" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 15:: %s\n",yytext);
+            return GE;
+        }
+    }
+"==" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 16:: %s\n",yytext);
+            return EQU;
+        }
+    }
+"!=" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 17:: %s\n",yytext);
+            return NEQU;
+        }
+    }
+"=" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 18:: %s\n",yytext);
+            return ASGN;
+        }
+    }
+"+" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 19:: %s\n",yytext);
+            return PLUS;
+        }
+    }
+"-" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 20:: %s\n",yytext);
+            return MINUS;
+        }
+    }
+"*" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 21:: %s\n",yytext);
+            return MULT;
+        }
+    }
+"/" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 22:: %s\n",yytext);
+            return DIV;
+        }
+    }
+"<" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 23:: %s\n",yytext);
+            return LT;
+        }
+    }
+">" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 24:: %s\n",yytext);
+            return GT;
+            }
+    }
 
-"else_if" {if(multicomm==0){count(); fprintf(flexo,"lex 25:: %s\n",yytext);return ELSEIF;}}
-"if" {if(multicomm==0){count(); fprintf(flexo,"lex 27:: %s\n",yytext);return IF;}}
-"else" {if(multicomm==0){count(); fprintf(flexo,"lex 28:: %s\n",yytext);return ELSE;}}
-. {if(multicomm==0){count(); fprintf(flexo,"lex 29:: %s\n",yytext);}}
-"\""(.)*"\"" {if(multicomm==0){count(); fprintf(flexo,"lex 30:: %s\n",yytext);strcpy(yylval.text,yytext);return STR;}}
+"else_if" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 25:: %s\n",yytext);
+            return ELSEIF;
+        }
+    }
+"if" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 27:: %s\n",yytext);
+            return IF;
+        }
+    }
+"else" {
+        if(multicomm==0){
+            count();
+            fprintf(flexo,"lex 28:: %s\n",yytext);
+            return ELSE;
+        }
+    }
+
+"\""(.)*"\"" {
+    if(multicomm==0){
+        count();
+        fprintf(flexo,"lex 30:: %s\n",yytext);
+        strcpy(yylval.text,yytext+1);
+        yylval.text[strlen(yylval.text)-1]='\n';
+        return STR;
+    }
+}
 
 %%
 
@@ -93,8 +291,7 @@ void count()
     //ECHO;
 }
 int main(){
-    yyin = freopen("sample.txt","r",stdin);
-	//freopen("output.txt","w",stdout);
+    freopen("sample.txt","r",stdin);
 	flexo = fopen("lex_out.txt","w");
     yyparse();
     fclose(flexo);

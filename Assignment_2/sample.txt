@@ -1,3 +1,6 @@
-int prg_main(){
-    int var_i = 0;
+int prg_main()
+{
+    int var_i = 10;
+    int var_j = 10;
+    prg_print("var");
 }

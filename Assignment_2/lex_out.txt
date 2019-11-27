@@ -1,0 +1,18 @@
+lex 7:: int
+lex 2:: prg_main
+lex 10:: (
+lex 11:: )
+lex 12:: {
+lex 7:: int
+lex 6:: var_i
+lex 18:: =
+lex 1 :: 10
+lex 7:: int
+lex 6:: var_j
+lex 18:: =
+lex 1 :: 10
+lex 4:: prg_print
+lex 10:: (
+lex 30:: "var"
+lex 11:: )
+lex 13:: }
