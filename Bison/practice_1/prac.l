@@ -1,19 +1,68 @@
+space " "
+newline "\n"
+digit [0-9]
 %{
 	#include <stdio.h>
 	#include "prac.tab.h"
+	int yyparse();
+    int yylex();
+	void yyerror();
 %}
 
 %%
-[ \t\n] ;
-[0-9]+\.[0-9]+ { printf("OK float\n");yylval.fval = atof(yytext);return FLOAT; }
-[0-9]+ { printf("OK int\n");yylval.ival = atoi(yytext); return INT; }
-[a-zA-Z0-9]+ {
-	printf("OK STRING\n");
-	yylval.sval = strdup(yytext);
-	return STRING;
+{space} {}
+{newline} {}
+"else if" {
+	printf("ELSE IF");
+	return ELSEIF;
+}
+"if" {
+	printf("IF");
+	return IF;
+}
+"else" {
+	return ELSE;
+}
+{digit}+ {
+	yylval=atoi(yytext);
+	printf("%s\n",yytext);
+	return NUM;
+}
+"<" {
+	return LT;
+}
+">" {
+	return GT;
+}
+"+" {
+	return PLUS;
+}
+"-" {
+	return MINUS;
+}
+"(" {
+	printf("PB\n");
+	return PB;
+}
+")" {
+	printf("PE\n");
+	return PE;
+}
+"{" {
+	return BB;
+}
+"}" {
+	return BE;
+}
+"while" {
+	return WHILE;
 }
 %%
 int yywrap()
 {
-    return 1;
+	return 1;
+}
+int main(){
+    freopen("input.txt","r",stdin);
+	yyparse();
 }
