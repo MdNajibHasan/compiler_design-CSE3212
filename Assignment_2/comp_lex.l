@@ -237,7 +237,7 @@ Identifier ({char}|{digit}|{special})+
             }
     }
 
-"else_if" {
+"else if" {
         if(multicomm==0){
             count();
             fprintf(flexo,"lex 25:: %s\n",yytext);
@@ -288,7 +288,7 @@ void count()
             column+=(8-(column%8));
         else column++;
     }
-    //ECHO;
+    ECHO;
 }
 int main(){
     freopen("sample.txt","r",stdin);

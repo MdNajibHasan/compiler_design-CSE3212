@@ -6,6 +6,8 @@
     int yyparse();
     int yylex();
     int yyerror();
+    int ifdone[1000];
+    int ifptr=0;
     struct ll_identifier *root=NULL,*last=NULL;
 %}
 
@@ -211,34 +213,27 @@ expression  :NUM {$$=$1;}
             ;
 
 ifelse      : IF PB expression PE BB statement BE  {
-                    //printf("came here ifelse %d\n",$3);
-                    
-                    /*if(ifptr<0){
-                        printf("1ok negetive");
-                        ifptr=0;
+                    ifptr++;
+                    if($3>0){
+                        printf("IF Executed\n");
+                        ifdone[ifptr]=1;
                     }
-                    ifdone[ifptr] = 0;
-                    ifptr --;*/
-                } elseif 
+                } elseif {
+                    ifptr--;
+                }
             ;
 elseif : /* empty */
         | ELSEIF PB expression PE BB statement BE
             {
-                printf("ELSE IF :: %d\n",$3);
+                if(ifdone[ifptr]==0 && $3>0){
+                    ifdone[ifptr]=1;
+                    printf("ELSE IF executed\n");
+                }
             } elseif
         | elseif ELSE BB statement BE 
             {
-                //printf("Came ELSE\n");
-                /*
-                if(ifptr<0){
-                    printf("4ok negetive");
-                    ifptr=0;
-                }
-                if(ifdone[ifptr] == 0) 
-                {
-                    printf("\n ELSE Executed\n");
-                    ifdone[ifptr] = 1;
-                }*/
+                if(ifdone[ifptr]==0)
+                    printf("ELSE Executed\n");
             }
         ;
 
