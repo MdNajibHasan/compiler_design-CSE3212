@@ -236,22 +236,20 @@ elseif : /* empty */
                     printf("ELSE Executed\n");
             }
         ;
-
 function    : /* empty */
             | function func
             ;
-func        : type FUNCTION PB fparameter PE BB statement BE 
+func        :type FUNCTION PB fparameter PE BB statement BE 
                 {
                     printf("\nfunction declared\n");
                 }
             ;
 fparameter  : /* empty */
             | type ID fsparameter
-            ;
+            ;    
 fsparameter : /* empty */
             | fsparameter CM type ID 
             ;
-
 whilestmt   : WHILE PB expression PE BB statement BE{
                 printf("while condition executed for %d\n",$3);
             }
@@ -261,7 +259,7 @@ forloopstmt : FOR PB forassign SM expression SM forassign PE BB statement BE{
             }
             ;
 
-forassign   :ID ASGN expression CM ID ASGN expression
+forassign   :ID ASGN expression CM forassign
             | ID ASGN expression
 %%
 
