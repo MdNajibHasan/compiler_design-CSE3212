@@ -1,6 +1,7 @@
 func add (A:Int) ->Int {
     var a:Int,b=10,c:[Int],Dd:[[[Int]]]*(100);
-    if(9>8)
+    9*"abc";
+    if(9>"abc")
     {
         if(8.0)
         {

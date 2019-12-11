@@ -2,25 +2,36 @@
     #include<stdio.h>
     #include<stdlib.h>
     #include<string.h>
+    #include "identifier.c"
     int yyparse();
     int yylex();
     int yyerror();
     int ifdone[1000];
     int ifptr=0;
 %}
-
+%code requires {
+    #ifndef __DT__
+    #define __DT__
+    struct __DT__ datatype {
+        int type;
+        char *strval;
+        int intval;
+        double doubleval;
+    };
+    #endif
+}
 %union {
     char text[1009];
-    double doubleval;
-    int intval;
+    struct datatype val;
 }
 
 %token<text>NAME
-%token<doubleval>DNUM
-%token<intval>INUM
-%type<doubleval>expression
+%token<text>VARACCESS
+%token<val>NUM
+%token<val>STR
+%type<val>expression
 
-%token FUNC CLASS INIT INT DOUBLE STRING CONST VOID VARACCESS STR VAR
+%token FUNC CLASS INIT INT DOUBLE STRING CONST VOID VAR
 %token ELSEIF ELSE IF
 %token FOR WHILE DO
 %token CONTINUE RETURN
@@ -62,19 +73,45 @@ mathexpr    : expression ';'
             ;
 ifgrammer   : IF '(' expression ')' '{' statement '}' elsifgrmr
             ;
-expression  : DNUM
-            | INUM
-            | expression '+' expression
-            | expression '-' expression
-            | expression '/' expression
-            | expression '*' expression
-            | expression '<=' expression
-            | expression '>=' expression
-            | expression '<' expression
-            | expression '>' expression
-            | expression '==' expression
-            | expression '!=' expression
-            | '(' expression ')'
+expression  : NUM { $$ = $1;
+                     print_datatype($1);
+            }
+            | STR {
+                $$ = $1; print_datatype($1);
+            }
+            | expression '+' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '-' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '/' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '*' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '<=' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '>=' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '<' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '>' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '==' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | expression '!=' expression { 
+                $$ = evaluate($1,$3,"+");
+            }
+            | '(' expression ')' { 
+                $$ = $2;
+            }
             ;
 
 returnstmt  : RETURN mathexpr

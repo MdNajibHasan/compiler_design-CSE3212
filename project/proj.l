@@ -86,20 +86,24 @@ Identifier ({char}|{digit}|{special})+
 }
 {digit}*"."{digit}+ {
     count();
-    yylval.doubleval = atof(yytext);
-    return DNUM;
+    yylval.val.doubleval = atof(yytext);
+    yylval.val.type = 3;
+    return NUM;
 }
 {digit}+ {
     count();
-    yylval.intval = atoi(yytext);
-    return INUM;
+    yylval.val.intval = atoi(yytext);
+    yylval.val.type = 2;
+    return NUM;
 }
 "$"{Identifier} {
     count();
+    strcpy(yylval.text,yytext);
     return VARACCESS;
 }
 {Identifier} {
     count();
+    strcpy(yylval.text,yytext);
     return NAME;
 }
 ">>="			{ count(); return(RIGHT_ASSIGN); }
@@ -150,8 +154,10 @@ Identifier ({char}|{digit}|{special})+
 "?"			{ count(); return('?'); }
 "\""(.)*"\"" {
     count();
-    strcpy(yylval.text,yytext+1);
-    yylval.text[strlen(yylval.text)-1]='\n';
+    yylval.val.type = 4;
+    yylval.val.strval = calloc(strlen(yytext),sizeof(char));
+    strcpy(yylval.val.strval,yytext+1);
+    yylval.val.strval[strlen(yylval.va.strval)-1]='\n';
     return STR;
 }
 %%
@@ -184,7 +190,7 @@ void count () {
             column+=(8-(column%8));
         else column++;
     }
-    ECHO;
+    //ECHO;
 }
 int main () {
     freopen("input.txt","r",stdin);
