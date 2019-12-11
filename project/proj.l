@@ -157,7 +157,7 @@ Identifier ({char}|{digit}|{special})+
     yylval.val.type = 4;
     yylval.val.strval = calloc(strlen(yytext),sizeof(char));
     strcpy(yylval.val.strval,yytext+1);
-    yylval.val.strval[strlen(yylval.va.strval)-1]='\n';
+    yylval.val.strval[strlen(yylval.val.strval)-1]='\n';
     return STR;
 }
 %%
