@@ -2,12 +2,16 @@
     #include<stdio.h>
     #include<stdlib.h>
     #include<string.h>
+    #include<math.h>
     #include "identifier.c"
     int yyparse();
     int yylex();
     int yyerror();
     int ifdone[1000];
     int ifptr=0;
+    int dimencount = 0;
+    struct ll_identifier *root=NULL,*last=NULL;
+    int typenow = -1;
 %}
 %code requires {
     #ifndef __DT__
@@ -39,17 +43,53 @@
 %token AND_OP OR_OP LE_OP GE_OP EQ_OP NE_OP
 
 %%
-starthere   : functions
-functions   : function functions
-            | function
+starthere   : /* empty */
+            | function starthere
+            | declaration starthere
+            | classgrammer starthere
             ;
-function    : FUNC NAME '(' fparameter ')' PTR_OP TYPE '{' statement '}'
+
+classgrammer    : CLASS NAME '{' statement '}' ';' {
+                    int res = addNewClass(&root,&last,$2,"");
+                    if(!res)
+                    {
+                        printf("Compilation Error ::  this name :: %s is already declared\n",$2);
+                        exit(-1);
+                    }
+                    else{
+                        printf("Class declared\n");
+                    }
+                }
+                ;
+
+function    : FUNC NAME '(' fparameter ')' PTR_OP TYPE {
+                char *val;
+                int n = log10(typenow) + 1;
+                val = calloc(n + 1, sizeof(char));
+                snprintf(val, n, "%ld", typenow);
+                int res = addNewFunc(&root,&last,$2,val);
+                if(!res)
+                {
+                    printf("Compilation Error ::  Varribale %s is already declared\n",$2);
+                    exit(-1);
+                }
+                else{
+                    printf("Function declared\n");
+                }
+            } '{' statement '}'
             ;
-TYPE        : INT 
-            | DOUBLE 
-            | STRING 
-            | VOID 
-            | NAME
+TYPE        : INT { typenow = 1;}
+            | DOUBLE { typenow = 2;}
+            | STRING { typenow = 3;}
+            | VOID { typenow = 4;}
+            | NAME {  
+                struct ll_identifier* res = getVal(&root,$1);
+                if(res==NULL || res->data.type!=6){
+                    printf("Error :: Class Name Not defined\n");
+                    exit(-1);
+                }
+                typenow = res->data.intval;
+            }
             ;
 fparameter : 
             | NAME ':' TYPE fsparameter
@@ -83,31 +123,31 @@ expression  : NUM { $$ = $1;
                 $$ = evaluate($1,$3,"+");
             }
             | expression '-' expression { 
-                $$ = evaluate($1,$3,"+");
+                $$ = evaluate($1,$3,"-");
             }
             | expression '/' expression { 
-                $$ = evaluate($1,$3,"+");
+                $$ = evaluate($1,$3,"/");
             }
             | expression '*' expression { 
-                $$ = evaluate($1,$3,"+");
+                $$ = evaluate($1,$3,"*");
             }
-            | expression '<=' expression { 
-                $$ = evaluate($1,$3,"+");
+            | expression "<=" expression { 
+                $$ = evaluate($1,$3,"<=");
             }
-            | expression '>=' expression { 
-                $$ = evaluate($1,$3,"+");
+            | expression ">=" expression { 
+                $$ = evaluate($1,$3,">=");
             }
             | expression '<' expression { 
-                $$ = evaluate($1,$3,"+");
+                $$ = evaluate($1,$3,"<");
             }
             | expression '>' expression { 
-                $$ = evaluate($1,$3,"+");
+                $$ = evaluate($1,$3,">");
             }
-            | expression '==' expression { 
-                $$ = evaluate($1,$3,"+");
+            | expression "==" expression { 
+                $$ = evaluate($1,$3,"==");
             }
-            | expression '!=' expression { 
-                $$ = evaluate($1,$3,"+");
+            | expression "!=" expression { 
+                $$ = evaluate($1,$3,"!=");
             }
             | '(' expression ')' { 
                 $$ = $2;
@@ -122,15 +162,84 @@ declaration :VAR varriables ';'
 varriables  : varriable ',' varriables
             | varriable
             ;
-varriable   : NAME ':' TYPE
-            | NAME '=' expression
-            | NAME ':' arraydim '*' '(' expression ')'
-            | NAME ':' arraydim
+varriable   : NAME ':' TYPE {
+                int res = addNewVal(&root,&last,$1,"");
+                if(!res)
+                {
+                    printf("Compilation Error ::  Varribale %s is already declared\n",$1);
+                    exit(-1);
+                }
+                printf("varriable declared\n");
+            }
+            | NAME '=' expression {
+                char *val;
+                if ($3.type == 2) {
+                    $3.type = 4;
+                    int n = log10($3.intval) + 1;
+                    val = calloc(n + 1, sizeof(char));
+                    snprintf(val, n + 1, "%ld", $3.intval);
+                }
+                else if ($3.type == 3) {
+                    $3.type = 4;
+                    val = calloc(51, sizeof(char));
+                    snprintf(val, 50, "%lf", $3.doubleval);
+                }
+                else{
+                    val = $3.strval;
+                }
+                int res = addNewVal(&root,&last,$1,val);
+                if(!res)
+                {
+                    printf("Compilation Error ::  Varribale %s is already declared\n",$1);
+                    exit(-1);
+                }
+                else{
+                    printf("varriable declared\n");
+                }
+            }
+            | NAME ':' arraydim '*' '(' expression ')' {
+                char *val;
+                //printf("dimencount :: %d\n",dimencount);
+                int n = log10(dimencount) + 2;
+                val = calloc(n + 1, sizeof(char));
+                char *temp = calloc(n,sizeof(char));
+                snprintf(temp, n, "%ld", dimencount);
+                val[0]='`';
+                strcat(val,temp);
+                int res = addNewVal(&root,&last,$1,val);
+                if(!res)
+                {
+                    printf("Compilation Error ::  Varribale %s is already declared\n",$1);
+                    exit(-1);
+                }
+                else{
+                    printf("Array declared\n");
+                }
+            }
+            | NAME ':' arraydim {
+                char *val;
+                //printf("dimencount :: %d\n",dimencount);
+                int n = log10(dimencount) + 2;
+                val = calloc(n + 1, sizeof(char));
+                char *temp = calloc(n,sizeof(char));
+                snprintf(temp, n, "%ld", dimencount);
+                val[0]='`';
+                strcat(val,temp);
+                int res = addNewVal(&root,&last,$1,val);
+                if(!res)
+                {
+                    printf("Compilation Error ::  Varribale %s is already declared\n",$1);
+                    exit(-1);
+                }
+                else{
+                    printf("Array declared\n");
+                }
+            }
             ;
-arraydim    : '[' arrayx ']'
+arraydim    : '[' arrayx ']' {dimencount++;}
             ;
-arrayx      : TYPE
-            | '[' arrayx ']'
+arrayx      : TYPE {dimencount = 0;}
+            | '[' arrayx ']' {dimencount++;}
             ;
 elsifgrmr   :
             | ELSEIF '(' expression ')' '{' statement '}' elsifgrmr

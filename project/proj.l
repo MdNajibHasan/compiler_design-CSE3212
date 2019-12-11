@@ -84,6 +84,10 @@ Identifier ({char}|{digit}|{special})+
     count();
     return VOID;
 }
+"Class" {
+    count();
+    return CLASS;
+}
 {digit}*"."{digit}+ {
     count();
     yylval.val.doubleval = atof(yytext);
@@ -157,7 +161,7 @@ Identifier ({char}|{digit}|{special})+
     yylval.val.type = 4;
     yylval.val.strval = calloc(strlen(yytext),sizeof(char));
     strcpy(yylval.val.strval,yytext+1);
-    yylval.val.strval[strlen(yylval.val.strval)-1]='\n';
+    yylval.val.strval[strlen(yylval.val.strval)-1]=0;
     return STR;
 }
 %%

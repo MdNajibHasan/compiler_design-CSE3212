@@ -50,9 +50,17 @@ struct identifier constructor(int typex, char *varnamex, char *valx) {
     strcpy((data.idname), varnamex);
     if (typex == 1) {  //function
         data.valtype = 1;
-        data.strval = (char *)malloc((strlen(valx) + 1) * sizeof(char));
-        strcpy(data.strval, valx);
-    } else {
+        data.intval = atoi(valx);
+    }
+    else if(typex == 5){ //array
+        data.valtype = 5;
+        data.intval = atoi(valx+1);
+    }
+    else if(typex == 6){ //class
+        data.valtype = 6;
+        data.intval = atoi(valx);
+    }
+    else {
         if (isInteger(valx)) {
             data.valtype = 2;
             data.intval = atoi(valx);
@@ -69,13 +77,19 @@ struct identifier constructor(int typex, char *varnamex, char *valx) {
 }
 void print(struct identifier data) {
     if ((data).valtype == 2) {
-        printf("%d\n", (data).intval);
+        printf("name :: %s value :: %d\n", (data).idname,(data).intval);
     } else if ((data).valtype == 3) {
-        printf("%f\n", (data).doubleval);
+        printf("name :: %s value :: %f\n", (data).idname, (data).intval);
     } else if ((data).valtype == 4) {
-        printf("%s\n", (data).strval);
+        printf("name :: %s value :: %s\n", (data).idname, (data).intval);
     } else if (data.valtype == 1) {
-        printf("Function name :: %s return type :: %s\n", data.idname, data.strval);
+        printf("Function name :: %s return type :: %s\n", data.idname,data.strval);
+    }
+    else if(data.valtype == 5){
+        printf("Array name :: %s Dimension :: %d\n", data.idname, data.intval);
+    }
+    else if(data.valtype == 6){
+        printf("Class name :: %s \n",data.idname);
     }
 }
 
@@ -83,7 +97,36 @@ struct ll_identifier {
     struct identifier data;
     struct ll_identifier *next;
 };
+struct ll_identifier *findClassName(struct ll_identifier **root, int id) {
+    struct ll_identifier *now = *root, *ans = NULL;
+    while (now != NULL) {
+        if (now->data.type == 6 && now->data.intval == id) {
+            ans = now;
+            break;
+        }
+        now = now->next;
+    }
+    return ans;
+}
+char *gettypename(int id, struct ll_identifier **root) {
+    if (id == 0) return "VOID";
+    if (id == 1) return "INT";
+    if (id == 2) return "DOUBLE";
+    if (id == 3)
+        return "STRING";
+    else {
+        struct ll_identifier *res = findClassName(root, id);
+        if (res == NULL) {
+            printf("Error :: Class not found\n");
+            exit(-1);
+        }
+        return res->data.idname;
+    }
+}
 void push_back_ll(struct ll_identifier **root, struct ll_identifier **last, struct identifier newdata) {
+    if(newdata.type == 1){
+        newdata.strval = strdup(gettypename(newdata.intval,root));
+    }
     struct ll_identifier *new_node = (struct ll_identifier *)malloc(sizeof(struct ll_identifier));
     new_node->data = newdata;
     new_node->next = NULL;
@@ -115,6 +158,8 @@ int addNewVal(struct ll_identifier **root, struct ll_identifier **last, char *st
         type = 2;
     else if (isDouble(val))
         type = 3;
+    else if(val[0]=='`')
+        type = 5;
     else if (strlen(val) > 0)
         type = 4;
     struct identifier tmp = constructor(type, str, val);
@@ -128,12 +173,19 @@ void setVal(struct ll_identifier **root, struct ll_identifier **last, char *str,
     struct ll_identifier *idx = isDeclared(root, str);
     if (idx == NULL) {
         addNewVal(root, last, str, val);
-    } else {
+    }
+    else if(idx->data.type == 1 || idx->data.type == 6){
+        printf("Error :: You can't set a value to class/function");
+        exit(-1);
+    }
+    else {
         int type = 1;
         if (isInteger(val))
             type = 2;
         else if (isDouble(val))
             type = 3;
+        else if (val[0] == '`')
+            type = 5;
         else if (strlen(val) > 0)
             type = 4;
         idx->data = constructor(type, str, val);
@@ -148,6 +200,14 @@ int addNewFunc(struct ll_identifier **root, struct ll_identifier **last, char *s
     push_back_ll(root, last, tmp);
     return 1;
 }
+int addNewClass(struct ll_identifier **root, struct ll_identifier **last, char *str, char *val) {
+    if (isDeclared(root, str) != NULL)
+        return 0;
+    int type = 6;
+    struct identifier tmp = constructor(type, str, val);
+    push_back_ll(root, last, tmp);
+    return 1;
+}
 
 void print_all(struct ll_identifier *now) {
     if (now == NULL)
@@ -155,6 +215,7 @@ void print_all(struct ll_identifier *now) {
     print(now->data);
     print_all(now->next);
 }
+
 //------------------------For expression -------------------------------------//
 #ifndef __DT__
 #define __DT__
