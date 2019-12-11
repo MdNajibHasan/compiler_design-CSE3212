@@ -119,6 +119,29 @@ expression  : NUM { $$ = $1;
             | STR {
                 $$ = $1; print_datatype($1);
             }
+            | VARACCESS {
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                else 
+                {
+                    if(res->data.type==2)
+                        $$ = make_datatype_int(res->data.intval);
+                    else if(res->data.type==3)
+                        $$ = make_datatype_double(res->data.doubleval);
+                    else if(res->data.type==4){
+                        $$ = make_datatype_char(res->data.strval);
+                    }
+                }
+            }
             | expression '+' expression { 
                 $$ = evaluate($1,$3,"+");
             }
@@ -254,7 +277,36 @@ forgrammer  : FOR '(' forassign ';' expression ';' forassign ')' '{' statement '
 
 forassign   : ASGNVAR ',' forassign
             | ASGNVAR
-ASGNVAR     : VARACCESS '=' expression
+ASGNVAR     : VARACCESS '=' expression {
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                else 
+                {
+                    if($3.type == 2){
+                        int n = log10($3.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",$3.intval);
+                        setVal(&root,&last,$1,numberArray);
+                    }
+                    else if($3.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",$3.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                    }
+                    else{
+                        setVal(&root,&last,$1,$3.strval);
+                    }
+                }
+            }
             ;
         
 whilegrammer    : WHILE '(' expression ')' '{' statement '}'

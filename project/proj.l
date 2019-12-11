@@ -102,7 +102,8 @@ Identifier ({char}|{digit}|{special})+
 }
 "$"{Identifier} {
     count();
-    strcpy(yylval.text,yytext);
+    strcpy(yylval.text,yytext+1);
+   // printf("Came :: %s\n",yylval.text);
     return VARACCESS;
 }
 {Identifier} {
