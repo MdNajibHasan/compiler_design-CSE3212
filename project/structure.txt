@@ -1,0 +1,37 @@
+function structure
+----------------------
+func name (var:type .. )->type 
+{
+    stmt
+    return type;
+}
+
+var structure
+------------------------
+var name:type
+var name=value
+------------------------
+var name:[type] //1d
+var name:[[type]] //2d
+------------------------
+class name{
+    var:type .. 
+    init()
+    {
+        stmt
+    }
+};
+/
+--------------------------
+type = Int,Double,String,classes,Array[Any]
+--------------------------
+type_class
+{
+    name,type,values,functions,properties
+}
+--------------------------
+if else if else c structure
+for/while c structure
+do while c structure
+--------------------------
+

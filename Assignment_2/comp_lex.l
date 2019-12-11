@@ -20,6 +20,7 @@ Identifier ({char}|{digit}|{special})+
 %}
 %%
 "/*" { multicomm=1;}
+"*/" {multicomm = 0;}
 "#".* { 
     if(multicomm==0)
         fprintf(flexo,"comment %s\n",yytext);
@@ -268,7 +269,10 @@ Identifier ({char}|{digit}|{special})+
         return STR;
     }
 }
-
+.* {
+    printf("ERROR");
+    exit(-1);
+}
 %%
 
 int yywrap()
@@ -280,7 +284,7 @@ int column  = 0;
 void count()
 {
     int i;
-    for(int i=0;yytext[i]!='\0';i++)
+    for(i=0;yytext[i]!='\0';i++)
     {
         if(yytext[i]=='\n')
             column=0;

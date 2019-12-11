@@ -16,7 +16,6 @@
     int val;
     int lineval;
 }
-
 %token <text> ID
 %token <val> NUM
 %token <text> STR
@@ -27,10 +26,7 @@
 %left PLUS MINUS
 %left MULT DIV
 
-%token INT DOUBLE WHILE FOR CHAR VOID MAIN  DOT PB PE BB BE VARD VARC SM CM ASGN PRINT PRINTLN MINUS MULT DIV LT GT LE GE IF ELSE ELSEIF COL FUNCTION EQU NEQU 
-%nonassoc IFX
-%nonassoc ELSE
-%left SH
+%token INT DOUBLE WHILE FOR CHAR VOID MAIN DOT PB PE BB BE VARD VARC SM CM ASGN PRINT PRINTLN MINUS MULT DIV LT GT LE GE IF ELSE ELSEIF COL FUNCTION EQU NEQU 
 
 %%
 starhere    : function program function { 
@@ -93,7 +89,6 @@ variable    :ID
                     }
                 } 
             ;
-
 assign    : ID ASGN expression CM assign {
                 //printf("came assign\n");
             }
@@ -117,7 +112,7 @@ assign    : ID ASGN expression CM assign {
         ;
 print   :PRINT PB expression PE SM
             {
-                printf("Value of expression :: %f\n",$3);
+                printf("Value of expression :: %d\n",$3);
             }
             |PRINT PB ID PE SM
             {
@@ -212,7 +207,7 @@ expression  :NUM {$$=$1;}
                 }
             ;
 
-ifelse      : IF PB expression PE BB statement BE  {
+ifelse      : IF PB expression PE BB statement BE {
                     ifptr++;
                     if($3>0){
                         printf("IF Executed\n");
@@ -230,7 +225,7 @@ elseif : /* empty */
                     printf("ELSE IF executed\n");
                 }
             } elseif
-        | elseif ELSE BB statement BE 
+        | ELSE BB statement BE 
             {
                 if(ifdone[ifptr]==0)
                     printf("ELSE Executed\n");

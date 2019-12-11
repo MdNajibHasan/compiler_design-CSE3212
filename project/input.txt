@@ -1,0 +1,27 @@
+func add (A:Int) ->Int {
+    var a:Int,b=10,c:[Int],Dd:[[[Int]]]*(100);
+    if(9>8)
+    {
+        if(8.0)
+        {
+            $a=10;
+        }
+    }
+    else if(8<9)
+    {
+        if(9.001)
+        {
+            $b=9;
+        }
+    }
+    else
+    {
+        $c=11.0;
+    }
+    for($a=10;10<20;$a=10)
+    {
+        $a=10;
+    }
+}
+func sub(A:Int) -> Int {}
+func main() -> Double {}

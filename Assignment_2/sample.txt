@@ -1,5 +1,6 @@
 int prg_main()
 {
+    prgasas
     int var_i = 10;
     int var_j = 10;
     prg_print("var");
