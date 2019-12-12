@@ -421,6 +421,27 @@ void print_datatype(struct datatype xx) {
         printf("%s\n", xx.strval);
     }
 }
+void fprint_datatype(struct datatype xx,FILE *x) {
+    if (xx.type == 2) {
+        fprintf(x,"%d\n", xx.intval);
+    } else if (xx.type == 3) {
+        fprintf(x,"%f\n", xx.doubleval);
+    }
+    if (xx.type == 4) {
+        fprintf(x,"%s\n", xx.strval);
+    }
+}
+int boolvalue(struct datatype x){
+    if(x.type==2)return x.intval!=0;
+    if(x.type==3)return x.doubleval!=0;
+    if(x.type==4)return strlen(x.strval)>0;
+    return 0;
+}
+int _intvalue(struct datatype x){
+    if(x.type==2)return x.intval;
+    if(x.type==3)return (int)x.doubleval;
+    return 0;
+}
 // int main() {
 //     struct ll_identifier *root, *last;
 //     root = NULL, last = NULL;

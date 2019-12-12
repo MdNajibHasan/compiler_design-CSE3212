@@ -1,0 +1,33 @@
+imported module :: nuhash , asad
+varriable declared : aa
+varriable declared : cc
+Class declared :: Nuhash
+varriable declared : aax
+varriable declared : ccx
+Class declared :: Ovipal
+varriable declared : xx
+Function declared :: add
+Value assigned :: xx = abc
+Value assigned :: cc = 10
+varriable declared : a
+varriable declared : b
+Array declared : c Dimension : 1
+Array declared : Dd Dimension : 3
+Value assigned :: a = 10
+Value assigned :: a = 11
+ELSE IF executed
+PRINT :: 10
+PRINT :: 10
+IF executed 
+Value assigned :: c = 11.000000
+Value assigned :: a = 10
+Value assigned :: a = 10
+Value assigned :: a = 10
+for loop executed with expression : 1
+PRINT :: nuhash
+Function declared :: sub
+Value assigned :: a = 20
+Do While loop executed with expression : 2
+Function declared :: main
+Value assigned :: b = 19
+While loop executed with expression : 1

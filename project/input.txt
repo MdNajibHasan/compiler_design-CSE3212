@@ -1,5 +1,9 @@
+import nuhash,asad;
 Class Nuhash {
     var aa=10,cc=10.01;
+};
+Class Ovipal {
+    var aax=10,ccx=10.01;
 };
 var xx:Int;
 func add (A:Int) ->Int {
@@ -7,16 +11,21 @@ func add (A:Int) ->Int {
     var a:Int,b=10,c:[Int],Dd:[[[Int]]]*(100);
     if(9>"abc")
     {
-        if(8.0)
+        if(8>9)
         {
             $a=10;
+        }
+        else if(1>0){
+            $a=11;
         }
     }
     else if(8<9)
     {
         if(9.001)
         {
-            $b=9;
+            print($b);
+            $b++;
+            print($b);
         }
     }
     else
@@ -27,6 +36,15 @@ func add (A:Int) ->Int {
     {
         $a=10;
     }
+    print("nuhash");
 }
-func sub(A:Int) -> Int {}
-func main() -> Double {}
+func sub(A:Int) -> Int {
+    DO {
+        $a=20;
+    }while(2);
+}
+func main() -> Double {
+    while(3>0) {
+        $b=19;
+    }
+}
