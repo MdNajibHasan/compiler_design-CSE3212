@@ -548,28 +548,292 @@ ASGNVAR     : VARACCESS '=' expression {
                 }
             }
             | VARACCESS ADD_ASSIGN expression {
-                $$ = evaluate($1,$3,"+");
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"+");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS SUB_ASSIGN expression {
-                $$ = evaluate($1,$3,"-");
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"-");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS MUL_ASSIGN expression {
-                $$ = evaluate($1,$3,"*");
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"*");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS DIV_ASSIGN expression {
-                $$ = evaluate($1,$3,"/");
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"/");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS MOD_ASSIGN expression {
-                $$ = evaluate($1,$3,"%");
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"%");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS AND_ASSIGN expression {
-                $$ = make_datatype_int(_intvalue($1) & _intvalue($3));
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"&");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS XOR_ASSIGN expression {
-                $$ = make_datatype_int(_intvalue($1) ^ _intvalue($3));
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"^");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             | VARACCESS OR_ASSIGN expression {
-                $$ = make_datatype_int(_intvalue($1) | _intvalue($3));
+                struct ll_identifier* res = isDeclared(&root,$1);
+                if(res==NULL)
+                {
+                    printf("Compilation Error ::  Varribale %s is not declared\n",$1);
+                    exit(-1);
+                }
+                else if(res->data.type == 1 || res->data.type == 6)
+                {
+                    printf("Error :: You can't set a value to class/function");
+                    exit(-1);
+                }
+                struct datatype tmp,tmp2;
+                if(res->data.valtype == 2) tmp = make_datatype_int(res->data.intval);
+                else if(res->data.valtype == 3) tmp = make_datatype_double(res->data.doubleval);
+                else if(res->data.valtype == 4) tmp = make_datatype_char(res->data.strval);
+                else tmp = make_datatype_int(0);
+                tmp2 = evaluate(tmp,$3,"|");
+                if(tmp2.type == 2){
+                        int n = log10(tmp2.intval) + 1;
+                        char *numberArray = calloc(n, sizeof(char));
+                        sprintf(numberArray,"%ld",tmp2.intval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %d\n",$1,tmp2.intval);
+                }
+                else if(tmp2.type == 3){
+                        char *numberArray = calloc(51,sizeof(char));
+                        snprintf(numberArray,50,"%lf",tmp2.doubleval);
+                        setVal(&root,&last,$1,numberArray);
+                        fprintf(infotext,"Value assigned :: %s = %f\n",$1,tmp2.doubleval);
+                }
+                else{
+                        setVal(&root,&last,$1,tmp2.strval);
+                        fprintf(infotext,"Value assigned :: %s = %s\n",$1,tmp2.strval);
+                }
             }
             ;
         

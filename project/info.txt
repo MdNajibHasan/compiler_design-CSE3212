@@ -15,9 +15,17 @@ Array declared : c Dimension : 1
 Array declared : Dd Dimension : 3
 Value assigned :: a = 10
 Value assigned :: a = 11
+PRINT :: 11
+Value assigned :: a = 11
+PRINT :: 11
+Value assigned :: a = 2
+PRINT :: 2
+Value assigned :: a = 10
+Value assigned :: a = 11
 ELSE IF executed
 PRINT :: 10
-PRINT :: 10
+Value assigned :: b = 11
+PRINT :: 11
 IF executed 
 Value assigned :: c = 11.000000
 Value assigned :: a = 10

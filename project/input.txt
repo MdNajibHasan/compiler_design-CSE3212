@@ -9,6 +9,13 @@ var xx:Int;
 func add (A:Int) ->Int {
     $xx="abc",$cc=10;
     var a:Int,b=10,c:[Int],Dd:[[[Int]]]*(100);
+    $a=10;
+    $a++;
+    print($a);
+    $a%=19;
+    print($a);
+    $a^=9;
+    print($a);
     if(9>"abc")
     {
         if(8>9)
@@ -17,6 +24,7 @@ func add (A:Int) ->Int {
         }
         else if(1>0){
             $a=11;
+
         }
     }
     else if(8<9)

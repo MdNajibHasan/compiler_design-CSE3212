@@ -408,6 +408,38 @@ struct datatype evaluate(struct datatype a, struct datatype b, char *sign) {
         } else {
             res.intval = (strcmp(a.strval, b.strval) == 0);
         }
+    } else if (strcmp(sign, "%") == 0) {
+        if (typex == 2) {
+            res = prepare_for_evaluate(&a, &b);
+            res.intval = a.intval % b.intval;
+        } else {
+            printf("Compilation error :: no function found for MODULAS\n");
+            exit(-1);
+        }
+    } else if (strcmp(sign, "&") == 0) {
+        if (typex == 2) {
+            res = prepare_for_evaluate(&a, &b);
+            res.intval = a.intval & b.intval;
+        } else {
+            printf("Compilation error :: no function found for AND\n");
+            exit(-1);
+        }
+    } else if (strcmp(sign, "^") == 0) {
+        if (typex == 2) {
+            res = prepare_for_evaluate(&a, &b);
+            res.intval = a.intval ^ b.intval;
+        } else {
+            printf("Compilation error :: no function found for XOR\n");
+            exit(-1);
+        }
+    } else if (strcmp(sign, "|") == 0) {
+        if (typex == 2) {
+            res = prepare_for_evaluate(&a, &b);
+            res.intval = a.intval | b.intval;
+        } else {
+            printf("Compilation error :: no function found for OR\n");
+            exit(-1);
+        }
     }
     return res;
 }

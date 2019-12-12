@@ -83,6 +83,36 @@ LEX 62 : (
 LEX 32: 100
 LEX 63 : )
 LEX 56 : ;
+LEX 33 : $a
+LEX 61 : =
+LEX 32: 10
+LEX 56 : ;
+LEX 33 : $a
+LEX 47 : ++
+LEX 56 : ;
+LEX 2 : print
+LEX 62 : (
+LEX 33 : $a
+LEX 63 : )
+LEX 56 : ;
+LEX 33 : $a
+LEX 41 : %=
+LEX 32: 19
+LEX 56 : ;
+LEX 2 : print
+LEX 62 : (
+LEX 33 : $a
+LEX 63 : )
+LEX 56 : ;
+LEX 33 : $a
+LEX 43 : ^=
+LEX 32: 9
+LEX 56 : ;
+LEX 2 : print
+LEX 62 : (
+LEX 33 : $a
+LEX 63 : )
+LEX 56 : ;
 LEX 23 : if
 LEX 62 : (
 LEX 32: 9
