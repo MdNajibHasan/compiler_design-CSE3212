@@ -34,6 +34,21 @@ Identifier ({char}|{digit}|{special})+
     fprintf(flexo,"LEX 2 : %s\n",yytext);
     return PRINT;
 }
+"switch" {
+    count();
+    fprintf(flexo,"LEX 2.1 : %s\n",yytext);
+    return SWITCH;
+}
+"case" {
+    count();
+    fprintf(flexo,"LEX 2.2 : %s\n",yytext);
+    return CASE;
+}
+"default" {
+    count();
+    fprintf(flexo,"LEX 2.2 : %s\n",yytext);
+    return def_ault;
+}
 "ASIN" {
     count();
     fprintf(flexo,"LEX 3 : %s\n",yytext);

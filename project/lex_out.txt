@@ -108,6 +108,29 @@ LEX 33 : $a
 LEX 43 : ^=
 LEX 32: 9
 LEX 56 : ;
+LEX 2.1 : switch
+LEX 62 : (
+LEX 32: 1
+LEX 63 : )
+LEX 60 : :
+LEX 57 : {
+LEX 2.2 : case
+LEX 32: 2
+LEX 60 : :
+LEX 2 : print
+LEX 62 : (
+LEX 80 : "nice"
+LEX 63 : )
+LEX 56 : ;
+LEX 2.2 : case
+LEX 32: 1
+LEX 60 : :
+LEX 2 : print
+LEX 62 : (
+LEX 80 : "nice"
+LEX 63 : )
+LEX 56 : ;
+LEX 58 : }
 LEX 2 : print
 LEX 62 : (
 LEX 33 : $a

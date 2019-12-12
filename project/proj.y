@@ -8,6 +8,8 @@
     int yylex();
     int yyerror();
     int ifdone[1000];
+    struct datatype casedata;
+    int caseflag;
     int ifptr=0;
     int dimencount = 0;
     struct ll_identifier *root=NULL,*last=NULL;
@@ -43,7 +45,7 @@
 %type<val>expression
 
 %token FUNC CLASS INIT INT DOUBLE STRING CONST VOID VAR
-%token ELSEIF ELSE IF
+%token ELSEIF ELSE IF SWITCH CASE def_ault
 %token FOR WHILE DO
 %token CONTINUE RETURN
 %token RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP INC_OP DEC_OP PTR_OP 
@@ -120,8 +122,29 @@ statement   :
             | dowhilegrameer statement
             | returnstmt statement
             | printgrammer statement
+            | switchgrammer statement
             ;
 
+switchgrammer   : SWITCH '(' expression ')' ':'{
+                    casedata = $3;
+                    fprintf(infotext,"Switch Case declared\n");
+                    fprint_datatype(casedata,infotext);
+                } '{' casegrammer '}'
+                ;
+
+casegrammer     : CASE expression ':' statement  {
+                    if(caseflag == 0 && evaluate($2,casedata,"==").intval == 1){
+                        caseflag = 1;
+                        fprintf(infotext,"Case executed :: ");
+                        fprint_datatype($2,infotext);
+                    }
+                } casegrammer
+                | def_ault ':' statement {
+                    if(caseflag == 0){
+                        fprintf(infotext,"Defualt executed\n");
+                    }
+                }
+                | /* empty */
 mathexpr    : expression ';' {
                     printf("Value of the expression :: ");
                     print_datatype($1);

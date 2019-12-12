@@ -19,6 +19,11 @@ PRINT :: 11
 Value assigned :: a = 11
 PRINT :: 11
 Value assigned :: a = 2
+Switch Case declared
+1
+PRINT :: nice
+PRINT :: nice
+Case executed :: 1
 PRINT :: 2
 Value assigned :: a = 10
 Value assigned :: a = 11
