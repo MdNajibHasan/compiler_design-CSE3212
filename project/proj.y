@@ -51,7 +51,10 @@
 %token PRINT SIN TAN LOG LOG10 COS ACOS ASIN ATAN GCD LCM POW IMPORT
 
 %%
-starthere   : /* empty */
+starthere   : {
+                fprintf(infotext,"\nCompiled Successfully\n\n");
+                fprint_all(root,infotext);
+            }
             | function starthere
             | declaration starthere
             | classgrammer starthere

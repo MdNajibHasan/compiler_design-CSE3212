@@ -31,6 +31,10 @@ Value assigned :: c = 11.000000
 Value assigned :: a = 10
 Value assigned :: a = 10
 Value assigned :: a = 10
+Value assigned :: a = 10
+Value assigned :: a = 10
+Value assigned :: a = 20
+for loop executed with expression : 1
 for loop executed with expression : 1
 PRINT :: nuhash
 Function declared :: sub
@@ -39,3 +43,20 @@ Do While loop executed with expression : 2
 Function declared :: main
 Value assigned :: b = 19
 While loop executed with expression : 1
+
+Compiled Successfully
+
+name :: aa value :: 10
+name :: cc value :: 10
+Class name :: Nuhash 
+name :: aax value :: 10
+name :: ccx value :: 0.000000
+Class name :: Ovipal 
+name :: xx value :: 
+Function name :: add return type :: INT
+name :: a value :: 20
+name :: b value :: 19
+name :: c value :: 0.000000
+Array name :: Dd Dimension :: 3
+Function name :: sub return type :: INT
+Function name :: main return type :: DOUBLE

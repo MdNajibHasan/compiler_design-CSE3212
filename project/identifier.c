@@ -92,6 +92,23 @@ void print(struct identifier data) {
         printf("Class name :: %s \n",data.idname);
     }
 }
+void fprint(struct identifier data,FILE* fp) {
+    if ((data).valtype == 2) {
+        fprintf(fp,"name :: %s value :: %d\n", (data).idname,(data).intval);
+    } else if ((data).valtype == 3) {
+        fprintf(fp,"name :: %s value :: %f\n", (data).idname, (data).intval);
+    } else if ((data).valtype == 4) {
+        fprintf(fp,"name :: %s value :: %s\n", (data).idname, (data).intval);
+    } else if (data.valtype == 1) {
+        fprintf(fp,"Function name :: %s return type :: %s\n", data.idname,data.strval);
+    }
+    else if(data.valtype == 5){
+        fprintf(fp,"Array name :: %s Dimension :: %d\n", data.idname, data.intval);
+    }
+    else if(data.valtype == 6){
+        fprintf(fp,"Class name :: %s \n",data.idname);
+    }
+}
 
 struct ll_identifier {
     struct identifier data;
@@ -214,6 +231,12 @@ void print_all(struct ll_identifier *now) {
         return;
     print(now->data);
     print_all(now->next);
+}
+void fprint_all(struct ll_identifier *now,FILE* fp) {
+    if (now == NULL)
+        return;
+    fprint(now->data,fp);
+    fprint_all(now->next,fp);
 }
 
 //------------------------For expression -------------------------------------//

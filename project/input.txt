@@ -43,6 +43,10 @@ func add (A:Int) ->Int {
     for($a=10;10<20;$a=10)
     {
         $a=10;
+        for($a=10;10<20;$a=10)
+        {
+            $a=20;
+        }
     }
     print("nuhash");
 }
